@@ -1,0 +1,99 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+* {
+    margin: 0;
+}
+
+/* body {
+    background-color: #2b2b2b;
+} */
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.scene {
+    width: var(--coin-diameter);
+    aspect-ratio: 1;
+    perspective: 1500px;
+
+    .coin {
+        will-change: transform;
+
+        position: relative;
+        width: var(--coin-diameter);
+        aspect-ratio: 1;
+        transform-style: preserve-3d;
+
+        animation: flip 2s ease-in-out;
+
+
+        [class^=coin_face-] {
+            position: absolute;
+
+            width: 100%;
+            height: 100%;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            border-radius: 100%;
+
+            /* transform: translateZ(calc(var(--coin-height))); */
+
+            background-color: aquamarine;
+            opacity: 0.5;
+        }
+
+        .coin_face-head {
+            transform: rotate3d(0, 1, 0, 0) translateZ(calc(var(--coin-height)/2));
+        }
+
+        .coin_face-tail {
+            transform: rotate3d(0, 1, 0, 180deg) translateZ(calc(var(--coin-height)/2));
+        }
+
+        .coin_border {
+
+            position: absolute;
+            top: 50%;
+            right: 50%;
+
+            transform: rotate3d(1, 0, 0, 90deg);
+
+            transform-style: preserve-3d;
+
+            [class^=coin_border_segment-] {
+
+                position: absolute;
+                height: var(--coin-height);
+                background-color: goldenrod;
+            }
+
+        }
+
+    }
+
+}
+
+@keyframes flip {
+    from {
+        transform: rotateY(0deg);
+    }
+
+    to {
+        transform: rotateY(1800deg);
+    }
+}
