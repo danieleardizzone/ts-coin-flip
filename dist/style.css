@@ -36,7 +36,25 @@
         aspect-ratio: 1;
         transform-style: preserve-3d;
 
-        animation: flip 2s ease-in-out;
+        &.flip-head-to-head {
+            animation: flip-head-to-head 2s ease-in-out;
+            animation-fill-mode: forwards;
+        }
+
+        &.flip-head-to-tail {
+            animation: flip-head-to-tail 2s ease-in-out;
+            animation-fill-mode: forwards;
+        }
+
+        &.flip-tail-to-tail {
+            animation: flip-tail-to-tail 2s ease-in-out;
+            animation-fill-mode: forwards;
+        }
+
+        &.flip-tail-to-head {
+            animation: flip-tail-to-head 2s ease-in-out;
+            animation-fill-mode: forwards;
+        }
 
 
         [class^=coin_face-] {
@@ -88,9 +106,41 @@
 
 }
 
-@keyframes flip {
+
+
+@keyframes flip-head-to-head {
     from {
         transform: rotateY(0deg);
+    }
+
+    to {
+        transform: rotateY(1800deg);
+    }
+}
+
+@keyframes flip-head-to-tail {
+    from {
+        transform: rotateY(0deg);
+    }
+
+    to {
+        transform: rotateY(1980deg);
+    }
+}
+
+@keyframes flip-tail-to-tail {
+    from {
+        transform: rotateY(180deg);
+    }
+
+    to {
+        transform: rotateY(1980deg);
+    }
+}
+
+@keyframes flip-tail-to-head {
+    from {
+        transform: rotateY(180deg);
     }
 
     to {

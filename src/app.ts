@@ -21,7 +21,33 @@ if (scene) {
 
         coinBorderConstructor(coinBorder, coinCircumference, coinDiameter);
 
-        let currentCoinFace = "rotate3d(0, 1, 0, 0)"
+        const flipBtn = document.getElementById('flip') as HTMLButtonElement;
+
+        if (flipBtn) {
+
+            let currentCoinFace = 'head'
+
+            flipBtn.addEventListener('click', () => {
+
+                flipBtn.disabled = true;
+
+                const options: string[] = ['head', 'tail'];
+
+                const result = randomItem(options);
+                console.log(result);
+
+                coin.classList.remove('flip-head-to-head', 'flip-head-to-tail', 'flip-tail-to-tail', 'flip-tail-to-head');
+
+                void coin.offsetWidth;
+
+                coinFlipAnimation(result, currentCoinFace, coin);
+
+                coin.addEventListener('animationend', () => {
+                    flipBtn.disabled = false;
+                }, { once: true });
+            })
+
+        }
 
     }
 
@@ -53,4 +79,26 @@ function coinBorderConstructor(coinBorder: HTMLElement, coinCircumference: numbe
         coinBorder.appendChild(segment);
     }
 
+}
+
+function randomItem(items: any[]): any | undefined {
+    return items[Math.floor(Math.random() * items.length)];
+}
+
+function coinFlipAnimation(result: string, currentCoinFace: string, coin: HTMLElement): void {
+    if (result === 'head') {
+        if (currentCoinFace === result) {
+            coin.classList.add('flip-head-to-head')
+        } else {
+            coin.classList.add('flip-tail-to-head')
+            currentCoinFace = 'head'
+        }
+    } else {
+        if (currentCoinFace === result) {
+            coin.classList.add('flip-tail-to-tail')
+        } else {
+            coin.classList.add('flip-head-to-tail')
+            currentCoinFace = 'tail'
+        }
+    }
 }
