@@ -8,6 +8,10 @@
     margin: 0;
 }
 
+body {
+    /* background-color: red; */
+}
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -97,6 +101,16 @@
 
         }
 
+    }
+
+    .coin-shadow {
+        height: calc(var(--coin-height) / 1.5);
+        width: 100%;
+        border-radius: 100%;
+        background: radial-gradient(#222222 0%, #00000000 100%);
+        position: absolute;
+        top: 105%;
+        filter: blur(8px);
     }
 
 }
