@@ -6,14 +6,8 @@
     if (scene) {
         const coin = scene.querySelector('.coin');
         if (coin) {
-            const coinDiameter = 400;
-            const coinHeight = Math.floor(coinDiameter / 12);
-            const coinCircumference = Math.PI * coinDiameter;
-            setCssLengthVariable('coin-diameter', coinDiameter);
-            setCssLengthVariable('coin-height', coinHeight);
-            setCssLengthVariable('coin-circumference', coinCircumference);
-            const coinBorder = coin.querySelector('.coin_border');
-            coinBorderConstructor(coinBorder, coinCircumference, coinDiameter);
+            updateCoinDimensions();
+            window.addEventListener('resize', updateCoinDimensions);
             const flipBtn = document.getElementById('flip');
             if (flipBtn) {
                 let coinCurrentFace = 'head';
@@ -41,6 +35,9 @@
         root.style.setProperty('--' + cssVariableName, cssVariableValue + 'px');
     }
     function coinBorderConstructor(coinBorder, coinCircumference, coinDiameter) {
+        while (coinBorder.firstChild) {
+            coinBorder.removeChild(coinBorder.firstChild);
+        }
         const segmentCount = 36;
         let segmentTilt = 0;
         for (let i = 0; i < segmentCount; i++) {
@@ -56,6 +53,7 @@
             }
             segmentTilt = segmentTilt + 360 / segmentCount;
             coinBorder.appendChild(segment);
+            console.log(coinBorder);
         }
     }
     function randomItem(items) {
@@ -89,6 +87,17 @@
         else {
             return null;
         }
+    }
+    function updateCoinDimensions() {
+        const isMobile = window.matchMedia("(max-width: 550px)").matches;
+        const coinDiameter = isMobile ? 280 : 400;
+        const coinHeight = Math.floor(coinDiameter / 12);
+        const coinCircumference = Math.PI * coinDiameter;
+        setCssLengthVariable('coin-diameter', coinDiameter);
+        setCssLengthVariable('coin-height', coinHeight);
+        setCssLengthVariable('coin-circumference', coinCircumference);
+        const coinBorder = document.querySelector('.coin_border');
+        coinBorderConstructor(coinBorder, coinCircumference, coinDiameter);
     }
 
 })();

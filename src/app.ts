@@ -9,17 +9,9 @@ if (scene) {
 
     if (coin) {
 
-        const coinDiameter: number = 400;
-        const coinHeight: number = Math.floor(coinDiameter / 12);
-        const coinCircumference: number = Math.PI * coinDiameter;
+        updateCoinDimensions();
 
-        setCssLengthVariable('coin-diameter', coinDiameter);
-        setCssLengthVariable('coin-height', coinHeight);
-        setCssLengthVariable('coin-circumference', coinCircumference);
-
-        const coinBorder = coin.querySelector('.coin_border') as HTMLElement;
-
-        coinBorderConstructor(coinBorder, coinCircumference, coinDiameter);
+        window.addEventListener('resize', updateCoinDimensions);
 
         const flipBtn = document.getElementById('flip') as HTMLButtonElement;
 
@@ -70,6 +62,10 @@ function setCssLengthVariable(cssVariableName: string, cssVariableValue: number)
 
 function coinBorderConstructor(coinBorder: HTMLElement, coinCircumference: number, coinDiameter: number): void {
 
+    while (coinBorder.firstChild) {
+        coinBorder.removeChild(coinBorder.firstChild);
+    }
+
     const segmentCount = 36;
 
     let segmentTilt = 0;
@@ -94,6 +90,8 @@ function coinBorderConstructor(coinBorder: HTMLElement, coinCircumference: numbe
         segmentTilt = segmentTilt + 360 / segmentCount;
 
         coinBorder.appendChild(segment);
+
+        console.log(coinBorder);
     }
 
 }
@@ -126,4 +124,21 @@ function coinFaceAnimation(currentFace: string, result: string): Keyframe[] | Pr
     } else {
         return null;
     }
+}
+
+function updateCoinDimensions(): void {
+    const isMobile = window.matchMedia("(max-width: 550px)").matches;
+
+    const coinDiameter: number = isMobile ? 280 : 400;
+
+    const coinHeight: number = Math.floor(coinDiameter / 12);
+    const coinCircumference: number = Math.PI * coinDiameter;
+
+    setCssLengthVariable('coin-diameter', coinDiameter);
+    setCssLengthVariable('coin-height', coinHeight);
+    setCssLengthVariable('coin-circumference', coinCircumference);
+
+    const coinBorder = document.querySelector('.coin_border') as HTMLElement;
+
+    coinBorderConstructor(coinBorder, coinCircumference, coinDiameter);
 }
