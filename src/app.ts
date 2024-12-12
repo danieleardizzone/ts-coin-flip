@@ -9,8 +9,8 @@ if (scene) {
 
     if (coin) {
 
-        const coinDiameter: number = 250;
-        const coinHeight: number = Math.floor(coinDiameter / 8.33);
+        const coinDiameter: number = 400;
+        const coinHeight: number = Math.floor(coinDiameter / 12);
         const coinCircumference: number = Math.PI * coinDiameter;
 
         setCssLengthVariable('coin-diameter', coinDiameter);
@@ -82,6 +82,14 @@ function coinBorderConstructor(coinBorder: HTMLElement, coinCircumference: numbe
 
         segment.style.transform = `translate(-50%, -50%) rotate3D(0, 1, 0, ${segmentTilt}deg) translateZ(${coinDiameter / 2}px)`
         segment.style.width = `${coinCircumference / segmentCount}px`
+
+        for (let j = 0; j < 4; j++) {
+            const notch = document.createElement('div');
+            notch.classList.add(`coin_border_segment-${i}_notch`);
+            notch.style.width = `${(coinCircumference / segmentCount) / 20}px`
+
+            segment.appendChild(notch);
+        }
 
         segmentTilt = segmentTilt + 360 / segmentCount;
 

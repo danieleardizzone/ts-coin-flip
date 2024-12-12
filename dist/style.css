@@ -46,15 +46,25 @@
 
             backface-visibility: hidden;
 
-            background-color: aquamarine;
-            opacity: 0.5;
+            /* background-color: aquamarine;
+            opacity: 0.5; */
         }
 
         .coin_face-head {
+            background-image: url(../src/images/euro-coin-head.png);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: contain;
+
             transform: rotateY(0deg) translateZ(calc(var(--coin-height)/2));
         }
 
         .coin_face-tail {
+            background-image: url(../src/images/euro-coin-tail.png);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: contain;
+
             transform: rotateY(180deg) translateZ(calc(var(--coin-height)/2));
         }
 
@@ -72,7 +82,17 @@
 
                 position: absolute;
                 height: var(--coin-height);
-                background-color: goldenrod;
+                background-color: #c7c8cd;
+
+                display: flex;
+                justify-content: space-around;
+
+                [class$=_notch] {
+                    height: var(--coin-height);
+                    width: 2px;
+                    background-color: #9fa0a2;
+                }
+
             }
 
         }

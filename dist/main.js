@@ -6,8 +6,8 @@
     if (scene) {
         const coin = scene.querySelector('.coin');
         if (coin) {
-            const coinDiameter = 250;
-            const coinHeight = Math.floor(coinDiameter / 8.33);
+            const coinDiameter = 400;
+            const coinHeight = Math.floor(coinDiameter / 12);
             const coinCircumference = Math.PI * coinDiameter;
             setCssLengthVariable('coin-diameter', coinDiameter);
             setCssLengthVariable('coin-height', coinHeight);
@@ -48,6 +48,12 @@
             segment.classList.add(`coin_border_segment-${i}`);
             segment.style.transform = `translate(-50%, -50%) rotate3D(0, 1, 0, ${segmentTilt}deg) translateZ(${coinDiameter / 2}px)`;
             segment.style.width = `${coinCircumference / segmentCount}px`;
+            for (let j = 0; j < 4; j++) {
+                const notch = document.createElement('div');
+                notch.classList.add(`coin_border_segment-${i}_notch`);
+                notch.style.width = `${(coinCircumference / segmentCount) / 20}px`;
+                segment.appendChild(notch);
+            }
             segmentTilt = segmentTilt + 360 / segmentCount;
             coinBorder.appendChild(segment);
         }
