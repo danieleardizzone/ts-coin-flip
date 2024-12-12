@@ -8,10 +8,6 @@
     margin: 0;
 }
 
-/* body {
-    background-color: #2b2b2b;
-} */
-
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -36,27 +32,6 @@
         aspect-ratio: 1;
         transform-style: preserve-3d;
 
-        &.flip-head-to-head {
-            animation: flip-head-to-head 2s ease-in-out;
-            animation-fill-mode: forwards;
-        }
-
-        &.flip-head-to-tail {
-            animation: flip-head-to-tail 2s ease-in-out;
-            animation-fill-mode: forwards;
-        }
-
-        &.flip-tail-to-tail {
-            animation: flip-tail-to-tail 2s ease-in-out;
-            animation-fill-mode: forwards;
-        }
-
-        &.flip-tail-to-head {
-            animation: flip-tail-to-head 2s ease-in-out;
-            animation-fill-mode: forwards;
-        }
-
-
         [class^=coin_face-] {
             position: absolute;
 
@@ -69,18 +44,18 @@
 
             border-radius: 100%;
 
-            /* transform: translateZ(calc(var(--coin-height))); */
+            backface-visibility: hidden;
 
             background-color: aquamarine;
             opacity: 0.5;
         }
 
         .coin_face-head {
-            transform: rotate3d(0, 1, 0, 0) translateZ(calc(var(--coin-height)/2));
+            transform: rotateY(0deg) translateZ(calc(var(--coin-height)/2));
         }
 
         .coin_face-tail {
-            transform: rotate3d(0, 1, 0, 180deg) translateZ(calc(var(--coin-height)/2));
+            transform: rotateY(180deg) translateZ(calc(var(--coin-height)/2));
         }
 
         .coin_border {
@@ -104,46 +79,4 @@
 
     }
 
-}
-
-
-
-@keyframes flip-head-to-head {
-    from {
-        transform: rotateY(0deg);
-    }
-
-    to {
-        transform: rotateY(1800deg);
-    }
-}
-
-@keyframes flip-head-to-tail {
-    from {
-        transform: rotateY(0deg);
-    }
-
-    to {
-        transform: rotateY(1980deg);
-    }
-}
-
-@keyframes flip-tail-to-tail {
-    from {
-        transform: rotateY(180deg);
-    }
-
-    to {
-        transform: rotateY(1980deg);
-    }
-}
-
-@keyframes flip-tail-to-head {
-    from {
-        transform: rotateY(180deg);
-    }
-
-    to {
-        transform: rotateY(1800deg);
-    }
 }

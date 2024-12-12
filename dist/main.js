@@ -6,7 +6,7 @@
     if (scene) {
         const coin = scene.querySelector('.coin');
         if (coin) {
-            const coinDiameter = 200;
+            const coinDiameter = 250;
             const coinHeight = coinDiameter / 10;
             const coinCircumference = Math.PI * coinDiameter;
             setCssLengthVariable('coin-diameter', coinDiameter);
@@ -16,18 +16,23 @@
             coinBorderConstructor(coinBorder, coinCircumference, coinDiameter);
             const flipBtn = document.getElementById('flip');
             if (flipBtn) {
-                let currentCoinFace = 'head';
+                let coinCurrentFace = 'head';
                 flipBtn.addEventListener('click', () => {
                     flipBtn.disabled = true;
                     const options = ['head', 'tail'];
                     const result = randomItem(options);
                     console.log(result);
-                    coin.classList.remove('flip-head-to-head', 'flip-head-to-tail', 'flip-tail-to-tail', 'flip-tail-to-head');
-                    void coin.offsetWidth;
-                    coinFlipAnimation(result, currentCoinFace, coin);
-                    coin.addEventListener('animationend', () => {
+                    let coinFlipping = coinFaceAnimation(coinCurrentFace, result);
+                    const flipTiming = {
+                        duration: 2000,
+                        iterations: 1,
+                        easing: "ease-in-out",
+                        fill: "forwards"
+                    };
+                    coin.animate(coinFlipping, flipTiming).onfinish = () => {
                         flipBtn.disabled = false;
-                    }, { once: true });
+                    };
+                    coinCurrentFace = result;
                 });
             }
         }
@@ -50,24 +55,33 @@
     function randomItem(items) {
         return items[Math.floor(Math.random() * items.length)];
     }
-    function coinFlipAnimation(result, currentCoinFace, coin) {
-        if (result === 'head') {
-            if (currentCoinFace === result) {
-                coin.classList.add('flip-head-to-head');
-            }
-            else {
-                coin.classList.add('flip-tail-to-head');
-                currentCoinFace = 'head';
-            }
+    function coinFaceAnimation(currentFace, result) {
+        if (currentFace === 'head' && result === 'head') {
+            return [
+                { transform: 'rotateY(0deg)' },
+                { transform: 'rotateY(2160deg)' } // da 360deg + 1800deg
+            ];
+        }
+        else if (currentFace === 'tail' && result === 'tail') {
+            return [
+                { transform: 'rotateY(180deg)' },
+                { transform: 'rotateY(2340deg)' } // da 540deg + 1800deg
+            ];
+        }
+        else if (currentFace === 'head' && result === 'tail') {
+            return [
+                { transform: 'rotateY(0deg)' },
+                { transform: 'rotateY(1980deg)' } // da 180deg + 1800deg
+            ];
+        }
+        else if (currentFace === 'tail' && result === 'head') {
+            return [
+                { transform: 'rotateY(180deg)' },
+                { transform: 'rotateY(2160deg)' } // da 360deg + 1800deg
+            ];
         }
         else {
-            if (currentCoinFace === result) {
-                coin.classList.add('flip-tail-to-tail');
-            }
-            else {
-                coin.classList.add('flip-head-to-tail');
-                currentCoinFace = 'tail';
-            }
+            return null;
         }
     }
 
