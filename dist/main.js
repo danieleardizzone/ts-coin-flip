@@ -7,7 +7,7 @@
         const coin = scene.querySelector('.coin');
         if (coin) {
             const coinDiameter = 250;
-            const coinHeight = coinDiameter / 10;
+            const coinHeight = Math.floor(coinDiameter / 8.33);
             const coinCircumference = Math.PI * coinDiameter;
             setCssLengthVariable('coin-diameter', coinDiameter);
             setCssLengthVariable('coin-height', coinHeight);
@@ -24,7 +24,7 @@
                     console.log(result);
                     let coinFlipping = coinFaceAnimation(coinCurrentFace, result);
                     const flipTiming = {
-                        duration: 2000,
+                        duration: 3000,
                         iterations: 1,
                         easing: "ease-in-out",
                         fill: "forwards"
@@ -59,25 +59,25 @@
         if (currentFace === 'head' && result === 'head') {
             return [
                 { transform: 'rotateY(0deg)' },
-                { transform: 'rotateY(2160deg)' } // da 360deg + 1800deg
+                { transform: 'rotateY(2160deg) rotateX(1800deg)' } // rotateY da 360deg + 1800deg
             ];
         }
         else if (currentFace === 'tail' && result === 'tail') {
             return [
                 { transform: 'rotateY(180deg)' },
-                { transform: 'rotateY(2340deg)' } // da 540deg + 1800deg
+                { transform: 'rotateY(2340deg) rotateX(1800deg)' } // rotateY da 540deg + 1800deg
             ];
         }
         else if (currentFace === 'head' && result === 'tail') {
             return [
                 { transform: 'rotateY(0deg)' },
-                { transform: 'rotateY(1980deg)' } // da 180deg + 1800deg
+                { transform: 'rotateY(1980deg) rotateX(1800deg)' } // rotateY da 180deg + 1800deg
             ];
         }
         else if (currentFace === 'tail' && result === 'head') {
             return [
                 { transform: 'rotateY(180deg)' },
-                { transform: 'rotateY(2160deg)' } // da 360deg + 1800deg
+                { transform: 'rotateY(2160deg) rotateX(1800deg)' } // rotateY da 360deg + 1800deg
             ];
         }
         else {
